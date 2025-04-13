@@ -53,14 +53,14 @@ public class StudentService {
 
     public Student updateStudent(Student student) {
 
-        Optional<Student> std = studentRepository.findById(student.getId());
+        Optional<Student> std = studentRepository.findById(student.getStudentId());
         Student response = null;
         if(std.isPresent()){
             response = studentRepository.save(student);
             logger.info("Student Data Updated Successfully!!!");
         }else {
-            logger.error("Student data not found with id={}",student.getId());
-            throw new StudentDataNotFoundException("Student data not found with id="+student.getId());
+            logger.error("Student data not found with id={}",student.getStudentId());
+            throw new StudentDataNotFoundException("Student data not found with id="+student.getStudentId());
         }
         return response;
     }
@@ -70,7 +70,7 @@ public class StudentService {
         Optional<Student> student = studentRepository.findById(id);
         if(student.isPresent()){
             studentRepository.delete(student.get());
-            logger.info("Student data Removed with id={}",student.get().getId());
+            logger.info("Student data Removed with id={}",student.get().getStudentId());
         }else {
             logger.error("Student data Not Found with id={}",id);
             throw new StudentDataNotFoundException("Student data not found with id="+id);
@@ -82,9 +82,8 @@ public class StudentService {
     @PostConstruct
     public void initData(){
 
-        Student s = new Student(1L,"Navnath","A+","8668816399","Public School");
+        Student s = new Student(1L,"Sharafudeen Aboobacker","Sharaf Aboobacker",3,"8668816399","Skiply School of Excellence");
        // studentRepository.saveAndFlush(s);
-
         logger.info("PostConstruct method gets called!!");
     }
 

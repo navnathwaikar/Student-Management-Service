@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "tbl_Student")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,11 +14,22 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "studentId")
+    private Long studentId;
 
-    private String name;
-    private String grade;
+    @Column(name = "parentName")
+    private String parentName;
+
+    @Column(name = "studentName")
+    private String studentName;
+
+    @Column(name = "grade")
+    private int grade;
+
+    @Column(name = "mobileNumber")
     private String mobileNumber;
+
+    @Column(name = "schoolName" )
     private String schoolName;
 
 }
