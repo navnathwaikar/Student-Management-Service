@@ -15,4 +15,11 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(HttpStatus.NOT_FOUND.value(),ex.getMessage());
     }
 
+
+    @ExceptionHandler(ServiceNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse serviceNotFound(ServiceNotFound ex){
+        return new ErrorResponse(HttpStatus.NOT_FOUND.value(),ex.getMessage());
+    }
+
 }

@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dto.ReceiptDTO;
 import com.example.dto.ReceiptGetDetailsDTO;
 import com.example.service.StudentReceiptService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
