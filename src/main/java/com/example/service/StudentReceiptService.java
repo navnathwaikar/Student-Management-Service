@@ -56,6 +56,7 @@ public class StudentReceiptService {
         return receipt;
     }
 
+    @CircuitBreaker(name = "feeReceiptServiceCB", fallbackMethod = "getFeeReceiptFallBack")
     public ResponseEntity<ReceiptGetDetailsDTO> saveReceipt(ReceiptDTO receiptDTO) {
         logger.info("Receipt Details saved Successfully!!");
         return client.collectFee(receiptDTO);

@@ -2,7 +2,9 @@ package com.example.controller;
 
 import com.example.dto.ReceiptDTO;
 import com.example.dto.ReceiptGetDetailsDTO;
+import com.example.entity.Student;
 import com.example.service.StudentReceiptService;
+import com.example.service.StudentService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,6 +26,9 @@ public class StudentReceiptController {
     @Autowired
     StudentReceiptService studentReceiptService;
 
+    @Autowired
+    private StudentService studentService;
+
 
     @Operation(summary = "Get student Receipt by ID", description = "Returns a Fee Receipt w.r.t student if found")
     @ApiResponses(value = {
@@ -42,7 +47,16 @@ public class StudentReceiptController {
     @PostMapping
     public ResponseEntity<ReceiptGetDetailsDTO> saveReceiptByStudentId(@RequestBody ReceiptDTO receiptDTO){
         logger.info("Student Receipt Save started!!!");
-        ResponseEntity<ReceiptGetDetailsDTO> response = studentReceiptService.saveReceipt(receiptDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
+        ResponseEntity<ReceiptGetDetailsDTO> receiptResponse = studentReceiptService.saveReceipt(receiptDTO);
+        Student studentResponse = studentService.getStudentById(receiptDTO.getStudentId());
+
+        receiptResponse.getBody().setStudentId(studentResponse.getStudentId());
+        receiptResponse.getBody().setStudentName(studentResponse.getStudentName());
+        receiptResponse.getBody().setParentName(studentResponse.getParentName());
+        receiptResponse.getBody().setSchoolName(studentResponse.getSchoolName());
+        receiptResponse.getBody().setGrade(studentResponse.getGrade());
+        receiptResponse.getBody().setMobileNumber(studentResponse.getMobileNumber());
+
+        return ResponseEntity.status(HttpStatus.OK).body(receiptResponse.getBody());
     }
 }
