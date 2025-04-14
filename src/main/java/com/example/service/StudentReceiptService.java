@@ -47,9 +47,11 @@ public class StudentReceiptService {
         logger.info("Receipt Details Fetched Successfully!!");
         ReceiptGetDetailsDTO receipt = new ReceiptGetDetailsDTO();
         receipt.setStudentId(student.getStudentId());
+        receipt.setStudentName(student.getStudentName());
         receipt.setParentName(student.getParentName());
         receipt.setGrade(student.getGrade());
         receipt.setMobileNumber(student.getMobileNumber());
+        receipt.setSchoolName(student.getSchoolName());
         receipt.setReceiptDTOList(response.getBody());
         return receipt;
     }
